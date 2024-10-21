@@ -3,7 +3,13 @@ import env from "./env"
 
 const URI = env.MONGODB_URI
 
-const clientOptions = {
+const clientOptions: mongoose.ConnectOptions = {
+    dbName: env.MONGODB_NAME,
+    retryWrites: true,
+    writeConcern: {
+        w: "majority",
+    },
+    appName: env.CLUSTER_NAME,
     serverApi: {
         version: '1',
         strict: true,
@@ -14,7 +20,6 @@ const clientOptions = {
 export default async function connectDB() {
     try {
         // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
-        // @ts-ignore
         await mongoose.connect(URI, clientOptions);
         await mongoose.connection.db?.admin().command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");

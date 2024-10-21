@@ -6,6 +6,7 @@ export const createWeatherData = async (data: WeatherDataType | WeatherDataType[
         const newWeatherData = await WeatherDataModel.create(data);
         return newWeatherData;
     } catch (err: any) {
+        console.log(err)
         throw new Error('Error creating weather data: ' + err.message);
     }
 };
@@ -18,6 +19,7 @@ export const getWeatherData = async (data: {
 }) => {
 
     const { city, startDate, endDate } = data
+    console.log(data)
 
     try {
         return await WeatherDataModel.find({
@@ -29,26 +31,3 @@ export const getWeatherData = async (data: {
     }
 };
 
-// Update weather data by ID
-export const updateWeatherData = async (data: {
-    id: string;
-    updatedData: Partial<WeatherDataType>;
-}) => {
-
-    const { id, updatedData } = data
-
-    try {
-        return await WeatherDataModel.findByIdAndUpdate(id, updatedData, { new: true });
-    } catch (err: any) {
-        throw new Error('Error updating weather data: ' + err.message);
-    }
-};
-
-// Delete weather data by ID
-export const deleteWeatherData = async (id: string) => {
-    try {
-        return await WeatherDataModel.findByIdAndDelete(id);
-    } catch (err: any) {
-        throw new Error('Error deleting weather data: ' + err.message);
-    }
-};

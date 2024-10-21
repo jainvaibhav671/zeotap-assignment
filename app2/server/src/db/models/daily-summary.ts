@@ -8,7 +8,10 @@ const dailySummarySchema = new Schema({
   minTemp: { type: Number, required: true },
   dominantCondition: { type: String, required: true },
   totalUpdates: { type: Number, required: true }
+}, {
+    collection: "DailySummary"
 });
+
 
 export const DailySummaryModel = model('DailySummary', dailySummarySchema);
 export type DailySummaryType = typeof DailySummaryModel.schema.obj; // Extract the raw object from schema

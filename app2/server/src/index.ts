@@ -1,6 +1,7 @@
 // ── Imports ─────────────────────────────────────────────────────────
 import express from 'express';
 import cors from "cors"
+import cookieParser from "cookie-parser"
 import env from './lib/env';
 import connectDB from "./lib/connectDB";
 import sockets from "./sockets"
@@ -16,7 +17,10 @@ const app = express();
 connectDB()
 
 // ── Middlewares ─────────────────────────────────────────────────────
-app.use(cors({ origin: env.CORS_ORIGIN }))
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // ── Routers ─────────────────────────────────────────────────────────
 for (const [path, router] of Object.entries(routers)) {
@@ -43,7 +47,13 @@ io.on('connection', (socket) => {
 });
 
 // ── Cron Jobs ───────────────────────────────────────────────────────
-// Schedule a cron job to fetch weather data every 5 minutes
+
+// Schedule a cron job to run every day at 12:00 AM
+cron.schedule('0 0 * * *', () => {
+    // calculate the daily aggregates and rollups
+});
+
+// Schedule a cron job to fetch weather data every five minutes
 cron.schedule('*/5 * * * *', async () => {
     console.log('Fetching weather data...');
 
@@ -63,8 +73,6 @@ cron.schedule('*/5 * * * *', async () => {
             temp: weather.temp
         }
     }))
-
-    console.log(data)
 
     // TODO store data in database
     console.log("Creating new weather data...");
