@@ -20,7 +20,7 @@ const Layout = () => {
 
     return (
         <ThemeProvider defaultTheme="system" storageKey="ui-theme">
-            <div className="flex flex-col h-screen">
+            <div className="w-screen flex flex-col h-screen">
                 <Header authorized={loaderData.authorized} />
                 <div className="flex-1 overflow-y-auto">
                     <Outlet />

@@ -24,10 +24,9 @@ function App() {
 
     return (
         <>
-            <div className="w-screen h-screen bg-background text-foreground">
+            <div className="bg-background text-foreground">
                 <div className="flex flex-col justify-center p-8">
                     <DatePicker selected={selected} setSelected={setSelected} />
-
                     <div className="grid grid-cols-3 gap-4 mt-4">
                         <WeatherCard city="Delhi" />
                         <WeatherCard city="Mumbai" />

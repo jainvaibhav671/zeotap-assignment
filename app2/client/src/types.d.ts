@@ -6,4 +6,6 @@ type WeatherData = {
     timestamp: string
     main: string
     city: string
+    description: string
+    icon: string
 }

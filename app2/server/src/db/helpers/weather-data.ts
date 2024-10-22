@@ -1,3 +1,4 @@
+import { Cities } from '@/lib/openweather';
 import { WeatherDataModel, type WeatherDataType } from '../models/weather-data';
 
 // Create a new weather data entry
@@ -13,9 +14,9 @@ export const createWeatherData = async (data: WeatherDataType | WeatherDataType[
 
 // Read weather data for a specific city and date range
 export const getWeatherData = async (data: {
-    city: Pick<WeatherDataType, 'city'>;
-    startDate: Pick<WeatherDataType, 'timestamp'>;
-    endDate: Pick<WeatherDataType, 'timestamp'>;
+    city: Cities
+    startDate: Pick<WeatherDataType, 'timestamp'>["timestamp"];
+    endDate: Pick<WeatherDataType, 'timestamp'>["timestamp"];
 }) => {
 
     const { city, startDate, endDate } = data

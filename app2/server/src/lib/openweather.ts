@@ -36,8 +36,11 @@ export async function fetchWeatherData(city: Cities) {
         dt: response.dt * 1000,
         main: response.weather[0].main,
         description: response.weather[0].description,
-        icon: response.weather[0].icon
+        icon: response.weather[0].icon,
+        wind_speed: response.wind.speed,
+        wind_direction: response.wind.deg
     }
 }
 
+export type FetchWeatherData = Awaited<ReturnType<typeof fetchWeatherData>>
 

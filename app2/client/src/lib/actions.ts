@@ -51,7 +51,9 @@ export const logoutAction = async () => {
 
 export const getCityWeatherData = async (city: Cities) => {
     try {
-        const data = await axios.get(`${API_URL}/api/weather/${city}`).then(res => res.data)
+        const data = await axios.get(`${API_URL}/api/weather/${city}`, {
+            withCredentials: true
+        }).then(res => res.data)
         console.log(data)
     } catch (error) {
         console.log(error)
