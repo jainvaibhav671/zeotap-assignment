@@ -1,7 +1,7 @@
 
 # Zeotap Internship Assignment
 
-**Github Link** [https://www.github.com/jainvaibhav671/zeotap-assignment]
+**Github Link** [https://www.github.com/jainvaibhav671/zeotap-assignment](https://www.github.com/jainvaibhav671/zeotap-assignment)
 
 ## Deployed Links
 
