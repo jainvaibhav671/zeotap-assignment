@@ -12,7 +12,7 @@ import { fetchWeatherData, CITY_COORDINATES } from './lib/openweather';
 import { createWeatherData, fetchAllWeatherData, getWeatherData } from './db/helpers/weather-data';
 import { WeatherDataType } from './db/models/weather-data';
 import { DailySummaryModel } from './db/models/daily-summary';
-import { Cities, DailyData } from "@/types"
+import { Cities, DailyData } from "./types"
 import { Cache } from "./lib/cache"
 
 const app = express();
@@ -21,7 +21,7 @@ connectDB()
 const cache = new Cache()
 
 // ── Middlewares ─────────────────────────────────────────────────────
-app.use(cors({ origin: "http://localhost:5173" }))
+app.use(cors({ origin: env.CORS_ORIGIN }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())

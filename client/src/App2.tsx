@@ -13,6 +13,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Label } from "./components/ui/label"
+import { Button } from "./components/ui/button"
+import { Link } from "react-router-dom"
 
 const socket = io(import.meta.env.VITE_API_URL)
 
@@ -57,6 +59,7 @@ const App = () => {
         <ThemeProvider defaultTheme="system" storageKey="ui-theme">
             <div className="w-screen flex flex-col h-screen">
                 <nav className="flex flex-col gap-4 items-center sm:flex-row justify-between bg-background border-b border-b-accent-foreground flex-wrap p-4">
+                    <Button asChild><Link to="/">Home</Link></Button>
                     <h1 className="text-3xl font-bold">Realtime Weather Monitoring App</h1>
                     <ThemeToggle />
                 </nav>

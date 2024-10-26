@@ -16,7 +16,7 @@ function tokenizeRule(ruleString: string): string[] {
 // Parse tokens into an AST structure
 function parseTokens(tokens: string[]): Node {
     const stack: Node[] = [];
-    let currentNode: Node | null = null;
+    let currentNode: Node | undefined = undefined;
 
     for (let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
@@ -26,7 +26,7 @@ function parseTokens(tokens: string[]): Node {
             if (currentNode) {
                 stack.push(currentNode);
             }
-            currentNode = null;
+            currentNode = undefined;
         } else if (token === ")") {
             // End of a sub-tree, pop from the stack and attach current node
             if (stack.length > 0) {
@@ -80,4 +80,3 @@ function parseTokens(tokens: string[]): Node {
 const ruleString = "((age > 30 AND department = 'Sales') OR (age < 25 AND department = 'Marketing')) AND (salary > 50000 OR experience > 5)";
 const ast = createRule(ruleString);
 console.log(JSON.stringify(ast, null, 2));
-

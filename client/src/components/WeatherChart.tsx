@@ -74,6 +74,7 @@ export default function WeatherChart(props: Props) {
                             content={(props) => {
                                 if (typeof props.payload === "undefined") return null
 
+                                // @ts-ignore
                                 return convertTemperature(temperatureUnit, props.payload[0]?.value || 0)
                             }}
                         />
@@ -89,4 +90,3 @@ export default function WeatherChart(props: Props) {
         </Card>
     )
 }
-

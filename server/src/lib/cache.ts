@@ -1,5 +1,5 @@
-import { fetchAllWeatherData } from "@/db/helpers/weather-data";
-import { CityData, Cities } from "@/types";
+import { fetchAllWeatherData } from "../db/helpers/weather-data";
+import { CityData, Cities } from "../types";
 
 type CacheType = Record<Cities, CityData>
 
@@ -19,6 +19,7 @@ export class Cache {
         if (!data) return
 
         Object.entries(new_data).forEach(([city, cityData]) => {
+            // @ts-ignore
             data[city as Cities].data.push(cityData)
         })
 

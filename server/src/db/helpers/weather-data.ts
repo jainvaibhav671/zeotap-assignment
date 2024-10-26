@@ -1,6 +1,6 @@
-import { Cities, CityData } from '@/types';
+import { Cities, CityData } from '../../types';
 import { WeatherDataModel, type WeatherDataType } from '../models/weather-data';
-import { CITY_COORDINATES } from '@/lib/openweather';
+import { CITY_COORDINATES } from '../../lib/openweather';
 
 // Create a new weather data entry
 export const createWeatherData = async (data: WeatherDataType | WeatherDataType[]) => {

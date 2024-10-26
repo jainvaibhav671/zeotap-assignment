@@ -9,7 +9,7 @@ export type Store = {
     // updateDailyData: (data: CityData["daily"]) => void;
 }
 
-export const useData = create<Store>((set, get) => {
+export const useData = create<Store>((set) => {
     return ({
         data: {} as Data,
         setData: (data) => set({ data }),
@@ -22,7 +22,7 @@ export type Settings = {
     setTemperatureUnit: (unit: TemperatureUnit) => void
 }
 
-export const useSettings = create<Settings>((set, get) => {
+export const useSettings = create<Settings>((set) => {
     return ({
         temperatureUnit: "celsius",
         setTemperatureUnit: (unit) => set({ temperatureUnit: unit })

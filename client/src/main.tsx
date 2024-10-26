@@ -6,8 +6,13 @@ import App1 from "@/App1.tsx"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import "./index.css"
+import Layout from './Layout'
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />
+    },
     {
         path: "/app1",
         element: <App1 />

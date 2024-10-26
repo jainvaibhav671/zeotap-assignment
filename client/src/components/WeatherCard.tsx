@@ -6,8 +6,6 @@ import {
     CardContent,
     CardFooter
 } from "@/components/ui/card"
-import { Button } from "./ui/button"
-import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { Cities, CityData } from "@/types"
 import { Skeleton } from "./ui/skeleton"
