@@ -1,47 +1,21 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '@/App.tsx'
-import Layout, { loader as layoutLoader } from "@/Layout.tsx"
-import LoginForm, { loader as loginLoader } from '@/components/LoginForm.tsx'
-import RegisterForm, { loader as registerLoader } from '@/components/RegisterForm.tsx'
+import App2 from "@/App2.tsx"
+import App1 from "@/App1.tsx"
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { loginAction, registerAction } from '@/lib/actions.ts'
-import WeatherModal, { loader as weatherModalLoader } from '@/components/WeatherModal.tsx'
 
 import "./index.css"
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        loader: layoutLoader,
-        element: <Layout />,
-        children: [
-            {
-                path: "/",
-                element: <App />,
-                children: [
-                    {
-                        path: "/:city",
-                        loader: weatherModalLoader,
-                        element: <WeatherModal />
-                    }
-                ]
-            },
-        ],
+        path: "/app1",
+        element: <App1 />
     },
     {
-        path: "/login",
-        action: loginAction,
-        loader: loginLoader,
-        element: <LoginForm />
+        path: "/app2",
+        element: <App2 />,
     },
-    {
-        path: "/register",
-        loader: registerLoader,
-        action: registerAction,
-        element: <RegisterForm />
-    }
 ])
 
 createRoot(document.getElementById('root')!).render(

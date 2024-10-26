@@ -7,76 +7,65 @@ import {
     CardFooter
 } from "@/components/ui/card"
 import { Button } from "./ui/button"
-import { Cloud, Icon } from "lucide-react"
-import { getCityWeatherData } from "@/lib/actions"
-import { Link, Outlet, useNavigate } from "react-router-dom"
-import { Dialog } from "./ui/dialog"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { Cities, CityData } from "@/types"
+import { Skeleton } from "./ui/skeleton"
+import { useSettings } from "@/lib/store"
+import { convertTemperature } from "@/lib/utils"
+import WeatherModal from "./WeatherModal"
 
 const IMG_URL = "https://openweathermap.org/img/w/"
 
 type Props = {
-    city: Cities
+    city: Cities,
+    data: CityData | undefined
 }
 
-export default function WeatherCard(props: Props) {
+export default function WeatherCard({ data, city }: Props) {
 
-    /*
-     * TODO: Fetch the city's weather data
-     * TODO: Setup a city specific websocket
-     * TODO: add a modal to display visualizations
-     *
-     * Things to show
-     * Average Temperature
-     * Maximum
-     * Minimum
-     * Dominant Weather Condition
-     * Wind speed and direction
-     * Weather Icon
-     *
-     * TODO: Cron job to automatically save the daily summaries in a database
-     *
-     * Modal Things
-     * Visualizations
-     * Configurable Time Interval
-     * Configurable Temp Unit
-     * Alerts on the website
-     * (OPTIONAL) Subscrible the user for changes in the weather
-     * */
-
-    // getCityWeatherData(props.city)
-    const navigate = useNavigate()
+    const temperatureUnit = useSettings((state) => state.temperatureUnit)
     const [open, setOpen] = useState(false)
-    const handleOpen = (value: boolean) => {
-        setOpen(value)
-        navigate("/")
-    }
 
-    return (
+    return typeof data !== "undefined" ? (
         <>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex justify-between">
                         <span>
-                            {props.city}
+                            {city}
                         </span>
-                        <img src={`${IMG_URL}/10d.png`} alt="Cloud" />
+                        <div className="flex flex-col items-center">
+                            <img src={`${IMG_URL}/${data.daily.dominant_weather_icon}.png`} alt="Cloud" />
+                            <span className="text-base font-normal">{data.daily.dominant_weather}</span>
+                        </div>
                     </CardTitle>
-                    <CardDescription>Card Description</CardDescription>
+                    <CardDescription></CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p>Card Content</p>
+                    <div className="grid grid-cols-2 ">
+                        <div className="flex flex-col">
+                            <h4 className="text-sm font-bold">Average</h4>
+                            <p className="text-base">{convertTemperature(temperatureUnit, data.daily.average)}</p>
+                        </div>
+                        <div className="flex flex-col">
+                            <h4 className="text-sm font-bold">Minimum</h4>
+                            <p className="text-base">{convertTemperature(temperatureUnit, data.daily.minimum)}</p>
+                        </div>
+                        <div className="flex flex-col">
+                            <h4 className="text-sm font-bold">Maximum</h4>
+                            <p className="text-base">{convertTemperature(temperatureUnit, data.daily.maximum)}</p>
+                        </div>
+                    </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                    <Button onClick={() => setOpen(true)} asChild>
-                        <Link to={`/${props.city}`}>Show More</Link>
-                    </Button>
+                    <WeatherModal open={open} setOpen={setOpen} city={city} data={data} />
                 </CardFooter>
             </Card>
-            <Dialog open={open} onOpenChange={handleOpen}>
-                <Outlet />
-            </Dialog>
+
         </>
+    ) : (
+        <Skeleton className="w-full h-full" />
     )
 
 }

@@ -1,10 +1,9 @@
 import env from "./env"
 import axios from "axios"
-import { WeatherResponse } from "../types.d"
+import { Cities, WeatherResponse } from "../types.d"
 
 const API_KEY = env.OPENWEATHERMAP_API_KEY
 
-// const API_URL = "https://api.openweathermap.org/data/2.5/weather"
 // const IMG_URL = "https://openweathermap.org/img/w/"
 
 export const CITY_COORDINATES = {
@@ -16,14 +15,9 @@ export const CITY_COORDINATES = {
     "Kolkata": { lat: 22.562600, lon: 88.363000 }
 }
 
-export type Cities = keyof typeof CITY_COORDINATES
-export type Location = typeof CITY_COORDINATES[Cities]
-
 export async function fetchWeatherData(city: Cities) {
-    // const city_location = CITY_COORDINATES[city]
-
     const url = new URL("https://api.openweathermap.org/data/2.5/weather")
-    url.searchParams.set("q", city)
+    url.searchParams.set("q", city as string)
     // url.searchParams.set("lat", city_location.lat.toString())
     // url.searchParams.set("lon", city_location.lon.toString())
     url.searchParams.set("appid", API_KEY)
@@ -31,6 +25,8 @@ export async function fetchWeatherData(city: Cities) {
     // const icon_url = `${IMG_URL}/${response.weather[0].icon}.png`
 
     return {
+        city: city,
+        timestamp: Date.now(),
         temp: response.main.temp,
         feels_like: response.main.feels_like,
         dt: response.dt * 1000,
@@ -42,5 +38,4 @@ export async function fetchWeatherData(city: Cities) {
     }
 }
 
-export type FetchWeatherData = Awaited<ReturnType<typeof fetchWeatherData>>
 

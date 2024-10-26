@@ -1,4 +1,4 @@
-import axios from "axios"
+import { TemperatureUnit } from "@/types"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -6,11 +6,15 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
-const API_URL = import.meta.env.VITE_API_URL
+export const CITIES = ["Delhi", "Mumbai", "Chennai", "Hyderabad", "Bangalore", "Kolkata"] as const
 
-export async function isAuthenticated() {
-    const authorized = await axios.get(`${API_URL}/api/auth/authenticated`, {
-        withCredentials: true
-    }).then(res => res.data.authorized)
-    return authorized
+export const convertTemperature = (unit: TemperatureUnit, temp: number) => {
+    switch (unit) {
+        case "celsius":
+            return `${(temp - 273.15).toFixed(2)} °C`
+        case "kelvin":
+            return `${temp.toFixed(2)} K`
+        case "fahrenheit":
+            return `${((temp - 273.15 - 32) * (5 / 9)).toFixed(2)} °F`
+    }
 }

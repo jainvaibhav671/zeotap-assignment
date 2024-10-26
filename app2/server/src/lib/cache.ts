@@ -1,26 +1,27 @@
-import { DailySummaryModel } from "@/db/models/daily-summary";
-import { Cities } from "./openweather"
-import { type FetchWeatherData } from "./openweather"
+import { fetchAllWeatherData } from "@/db/helpers/weather-data";
+import { CityData, Cities } from "@/types";
 
-type CityData = {
-    daily: {
-        average: number;
-        minimum: number;
-        maximum: number;
-        dominant_weather: number;
-        dominant_weather_icon: string
-    };
-    data: FetchWeatherData[];
-}
-type Cache = Record<Cities, CityData>
+type CacheType = Record<Cities, CityData>
 
-export let cache = {} as Cache
+export class Cache {
+    data: CacheType | null = null
 
-export function isCacheEmpty() {
-    return Object.keys(cache).length === 0
-}
+    constructor() {
+        this.fillCache()
+    }
 
-export function fillCache() {
-    // function to initialize the cache
-    // if the database has data
+    async fillCache() {
+        this.data = await fetchAllWeatherData()
+    }
+
+    async updateCache(new_data: Record<Cities, CityData>) {
+        const data = this.data
+        if (!data) return
+
+        Object.entries(new_data).forEach(([city, cityData]) => {
+            data[city as Cities].data.push(cityData)
+        })
+
+        this.data = data
+    }
 }

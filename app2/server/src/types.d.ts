@@ -1,3 +1,6 @@
+import { CITY_COORDINATES } from "./lib/openweather";
+import { fetchWeatherData } from "./lib/openweather";
+
 export interface WeatherResponse {
     coord: Coordinates;
     weather: Weather[];
@@ -59,3 +62,23 @@ export interface System {
     sunrise: number;      // Sunrise time in Unix timestamp
     sunset: number;       // Sunset time in Unix timestamp
 }
+
+export type CityData = {
+    daily: DailyData;
+    data: FetchWeatherData[];
+}
+
+export type FetchWeatherData = Awaited<ReturnType<typeof fetchWeatherData>>
+
+export type Cities = keyof typeof CITY_COORDINATES
+export type Location = typeof CITY_COORDINATES[Cities]
+
+export type DailyData = {
+    average: number;
+    minimum: number;
+    maximum: number;
+    dominant_weather: string;
+    dominant_weather_icon: string
+}
+
+

@@ -1,13 +1,14 @@
 import { Schema, model } from 'mongoose';
 
 const dailySummarySchema = new Schema({
-  city: { type: String, required: true },
-  date: { type: Date, required: true },
-  avgTemp: { type: Number, required: true },
-  maxTemp: { type: Number, required: true },
-  minTemp: { type: Number, required: true },
-  dominantCondition: { type: String, required: true },
-  totalUpdates: { type: Number, required: true }
+    city: { type: String, required: true },
+    date: { type: Date, required: true },
+    avgTemp: { type: Number, required: true },
+    maxTemp: { type: Number, required: true },
+    minTemp: { type: Number, required: true },
+    dominantCondition: { type: String, required: true },
+    dominantConditionIcon: { type: String, required: true },
+    totalUpdates: { type: Number, required: true }
 }, {
     collection: "DailySummary"
 });
